@@ -23,13 +23,14 @@ public class Tablero{
 
     public void mines() {
 
+
         while (quantitatMines < 10) {
 
             int x = (int) (Math.random() * 8);
-            int horizontal = (int) (Math.random() * 8);
+            int y = (int) (Math.random() * 8);
 
-            if (!tablero[x][horizontal].isMina()) {
-                tablero[x][horizontal] = new Casella(true, false);
+            if (!tablero[x][y].isMina()) {
+                tablero[x][y] = new Casella(true, false);
                 quantitatMines++;
             }
         }
