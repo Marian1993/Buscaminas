@@ -4,7 +4,10 @@ public class Joc {
 
         int [][] numeros  = new int[8][8];
 
-        numeros = Tablero.rellenarTablero(numeros);
-        Tablero.imprimirArray(numeros);
+        Tablero tablero = new Tablero(8, 8);
+
+        tablero.inicialitzarTablero();
+
+        tablero.imprimirTablero();
     }
 }

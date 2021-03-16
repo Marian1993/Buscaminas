@@ -1,54 +1,60 @@
-public class Tablero {
+public class Tablero{
 
-    int [][] tablero;
+    private Casella [][] tablero;
+    private int x;
+    private int y;
+    private int quantitatMines = 0;
 
-    public Tablero(int [][] tablero){
-
-        this.tablero = tablero;
+    public Tablero(int x, int y){
+        this.tablero = new Casella[x][y];
     }
 
-    public static int [][] rellenarTablero(int [][] numeros){
 
-        int [][] num = numeros;
+    public void inicialitzarTablero(){
 
-        for (int i = 0; i < num.length; i++) {
+        for (int i = 0; i < tablero.length; i++) {
 
-            for (int j = 0; j < num.length; j++) {
-                num[i][j] = 0;
+            for (int j = 0; j < tablero[i].length; j++) {
+                tablero[i][j] = new Casella(false,false);
             }
         }
-        return num;
+        mines();
     }
-    public static void imprimirArray(int [][] numeros){
 
-        String[][]tapaTablero = new String[numeros.length][numeros.length];
-        for (int i = 0; i < numeros.length; i++) {
+    public void mines() {
 
-            for (int j = 0; j < numeros.length; j++) {
+        while (quantitatMines < 10) {
 
-                tapaTablero[i][j] = "▀";
-                System.out.print(numeros[i][j]);
-                System.out.print(tapaTablero[i][j]);
+            int x = (int) (Math.random() * 8);
+            int horizontal = (int) (Math.random() * 8);
 
-                System.out.print("   ");
+            if (!tablero[x][horizontal].isMina()) {
+                tablero[x][horizontal] = new Casella(true, false);
+                quantitatMines++;
+            }
+        }
+    }
+    public void imprimirTablero(){
+
+        for (int i = 0; i < tablero.length; i++) {
+
+            for (int j = 0; j < tablero[i].length; j++) {
+
+                if(!tablero[i][j].isMina()) {
+                    System.out.print(0);
+                }
+                if (tablero[i][j].isMina()){
+                    System.out.print('*');
+                }
+                System.out.print("  ");
             }
             System.out.println();
         }
     }
-    /*public static String[][] rellenarTapaTablero(int [][] numeros){
-
-        String[][]tapaTablero = new String[numeros.length][numeros.length];
-
-        for (int i = 0; i < tapaTablero.length; i++) {
-
-            for (int j = 0; j < tapaTablero.length; j++) {
-
-                tapaTablero[i][j] = "223";
-
-            }
-        }
-       return tapaTablero;
-    }*/
+    public void numeros(){
 
 
+
+
+    }
 }
