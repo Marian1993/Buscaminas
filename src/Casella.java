@@ -1,14 +1,23 @@
 public class Casella {
 
 
-    private boolean mina = false;
-    private boolean bandera = false;
-    private boolean visible = false;
+    private boolean mina;
+    private boolean bandera;
+    private boolean visible;
+    private int minasCercanas;
 
-    public Casella(boolean mina, boolean visible){
+    public int getMinasCercanas() {
+        return minasCercanas;
+    }
 
-        this.mina = mina;
-        this.visible = visible;
+    public void setMinasCercanas(int minasCercanas) {
+        this.minasCercanas += minasCercanas;
+    }
+
+    public Casella(){
+        this.mina = false;
+        this.visible = false;
+        this.bandera = false;
     }
 
     public boolean isBandera() {
@@ -34,4 +43,6 @@ public class Casella {
     public void setMina(boolean mina) {
         this.mina = mina;
     }
+
+
 }
