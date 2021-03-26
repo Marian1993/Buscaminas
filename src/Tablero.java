@@ -1,4 +1,4 @@
-public class Tablero {
+public class Tablero extends Dificultat{
 
     private Casella[][] tablero;
     private int x;
