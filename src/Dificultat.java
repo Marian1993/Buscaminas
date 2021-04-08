@@ -3,10 +3,12 @@ import java.util.Scanner;
 public class Dificultat {
 
     private static final Scanner sc = new Scanner(System.in);
-    private static final int principiant = 0;
-    private static final int intermitg = 1;
-    private static final int expert = 2;
-    private static final int personalitzat = 3;
+    public static final int PRINCIPIANT = 1;
+    public static final int INTERMITG = 2;
+    public static final int EXPERT = 3;
+    public static final int PERSONALITZAT = 0;
+
+
 
     public Dificultat(){
 
@@ -14,16 +16,15 @@ public class Dificultat {
 
 
 
-    public static int principiant(int dificultat){
+    public static int nivellDificultat(int dificultat){
 
-        if(dificultat == 0){
+
+        if(dificultat == PRINCIPIANT){
            return 10;
-        }else if(dificultat == 1){
+        }else if(dificultat == INTERMITG){
             return 40;
-        }else if(dificultat == 2){
+        }else if(dificultat == EXPERT){
             return 99;
-        }else if(dificultat == 3){
-            return sc.nextInt();
         }else {
             return 0;
         }
