@@ -10,7 +10,7 @@ public class Casella {
         return minasCercanas;
     }
 
-    public void setMinasCercanas(int minasCercanas) {
+    public void addMinasCercanas(int minasCercanas) {
         this.minasCercanas += minasCercanas;
     }
 

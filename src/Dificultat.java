@@ -8,13 +8,9 @@ public class Dificultat {
     public static final int EXPERT = 3;
     public static final int PERSONALITZAT = 0;
 
-
-
     public Dificultat(){
 
     }
-
-
 
     public static int nivellDificultat(int dificultat){
 

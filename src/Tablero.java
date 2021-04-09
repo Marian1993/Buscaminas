@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-public class Tablero{
+public class Tablero {
 
-    private static Scanner sc =  new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
 
     private Casella[][] tablero;
     private int x;
@@ -17,27 +17,27 @@ public class Tablero{
 
     public void inicialitzarTablero(int dificultat) {
 
-        if(dificultat == Dificultat.PRINCIPIANT){
+        if (dificultat == Dificultat.PRINCIPIANT) {
             y = 8;
-            x= 8;
+            x = 8;
         }
-        if (dificultat == Dificultat.INTERMITG){
+        if (dificultat == Dificultat.INTERMITG) {
             y = 16;
-            x= 16;
+            x = 16;
         }
-        if (dificultat == Dificultat.EXPERT){
+        if (dificultat == Dificultat.EXPERT) {
             y = 16;
-            x= 30;
+            x = 30;
         }
-        if (dificultat == Dificultat.PERSONALITZAT){
+        if (dificultat == Dificultat.PERSONALITZAT) {
 
             System.out.print("Altura: ");
-            y= sc.nextInt();
+            y = sc.nextInt();
             System.out.print("Amplada: ");
-            x= sc.nextInt();
+            x = sc.nextInt();
 
         }
-        this.tablero =  new Casella[y][x];
+        this.tablero = new Casella[x][y];
 
         for (int i = 0; i < tablero.length; i++) {
 
@@ -52,7 +52,7 @@ public class Tablero{
 
     public void mines(int dificultat) {
 
-        if(dificultat == 0){
+        if (dificultat == 0) {
             System.out.print("Mines: ");
             int mines = sc.nextInt();
             while (quantitatMines < mines) {
@@ -64,10 +64,25 @@ public class Tablero{
                     tablero[x][y].setMina(true);
 
                     quantitatMines++;
+
+                    for (int altura = y-1; altura <= y+1; altura++) {
+
+                        for (int amplada = x-1; amplada <= x+1; amplada++) {
+
+                            if(altura >= 0 && amplada >= 0 && altura < this.y && amplada < this.x){
+
+                                if (!(tablero[altura][amplada].isMina())){
+
+                                    tablero[altura][amplada].addMinasCercanas(1);
+
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-        }else {
+        } else {
             while (quantitatMines < Dificultat.nivellDificultat(dificultat)) {
 
                 int x = (int) (Math.random() * tablero.length);
@@ -77,10 +92,25 @@ public class Tablero{
                     tablero[x][y].setMina(true);
 
                     quantitatMines++;
+
+                    for (int altura = y-1; altura <= y+1; altura++) {
+
+                        for (int amplada = x-1; amplada <= x+1; amplada++) {
+
+                            if(altura >= 0 && amplada >= 0 && altura < this.y && amplada < this.x){
+
+                                if (!(tablero[altura][amplada].isMina())){
+
+                                    tablero[altura][amplada].addMinasCercanas(1);
+
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         }
-        numerosTaulell();
         imprimirTaulell();
     }
 
@@ -92,7 +122,7 @@ public class Tablero{
             for (int j = 0; j < tablero[i].length; j++) {
 
                 if (!tablero[i][j].isMina()) {
-                    System.out.print(0);
+                    System.out.print(tablero[i][j].getMinasCercanas());
                 }
                 if (tablero[i][j].isMina()) {
                     System.out.print('*');
@@ -113,7 +143,7 @@ public class Tablero{
                 if (i != 0) {
                     if (tablero[i - 1][j].isMina()) {
                         numero++;
-                        tablero[i - 1][j].setMinasCercanas(numero);
+                        tablero[i - 1][j].addMinasCercanas(numero);
                         numero = 0;
 
                     }
@@ -157,41 +187,56 @@ public class Tablero{
         }
     }
 
-    public void numerosTaulell(){
+    public void numerosTaulell() {
 
         for (int i = 0; i < tablero.length; i++) {
 
             for (int j = 0; j < tablero[i].length; j++) {
                 int numero = 0;
-                if(tablero[i][j].isMina()) {
+                if (tablero[i][j].isMina()) {
 
-                    if(!(i == 0)){
+                    if (!(i == 0)) {
 
                         if (!(tablero[i - 1][j].isMina())) {
                             numero++;
+                            numero = 0;
                         }
                         if (!(tablero[i - 1][j - 1].isMina()) && !(j == 0)) {
                             numero++;
+                            numero = 0;
+
                         }
-                        if (!(tablero[i - 1][j + 1].isMina()) && !(j == tablero[j].length-1)) {
+                        if (!(tablero[i - 1][j + 1].isMina()) && !(j == tablero[j].length - 1)) {
                             numero++;
+                            numero = 0;
+
                         }
                     }
-                    if (!(tablero[i][j - 1].isMina()) && !(j ==0)) {
+                    if (!(tablero[i][j - 1].isMina()) && !(j == 0)) {
                         numero++;
+                        numero = 0;
+
                     }
-                    if (!(tablero[i][j + 1].isMina()) && !(j == tablero[j].length-1)) {
+                    if (!(tablero[i][j + 1].isMina()) && !(j == tablero[j].length - 1)) {
                         numero++;
+                        numero = 0;
+
                     }
-                    if(!(i == tablero[i].length-1)){
+                    if (!(i == tablero[i].length - 1)) {
                         if (!(tablero[i + 1][j].isMina())) {
                             numero++;
+                            numero = 0;
+
                         }
-                        if (!(tablero[i + 1][j - 1].isMina()) && !(j ==0)) {
+                        if (!(tablero[i + 1][j - 1].isMina()) && !(j == 0)) {
                             numero++;
+                            numero = 0;
+
                         }
-                        if (!(tablero[i + 1][j + 1].isMina()) && !(j == tablero[j].length-1)) {
+                        if (!(tablero[i + 1][j + 1].isMina()) && !(j == tablero[j].length - 1)) {
                             numero++;
+                            numero = 0;
+
                         }
                     }
 
