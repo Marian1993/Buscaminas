@@ -65,16 +65,15 @@ public class Tablero {
 
                     quantitatMines++;
 
-                    for (int altura = y-1; altura <= y+1; altura++) {
+                    for (int amplada = x-1; amplada <= x+1; amplada++) {
 
-                        for (int amplada = x-1; amplada <= x+1; amplada++) {
+                        for (int  altura = x-1; altura <= x+1; altura++) {
 
-                            if(altura >= 0 && amplada >= 0 && altura < this.y && amplada < this.x){
+                            if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
 
-                                if (!(tablero[altura][amplada].isMina())){
+                                if (!tablero[amplada][altura].isMina()){
 
-                                    tablero[altura][amplada].addMinasCercanas(1);
-
+                                    tablero[amplada][altura].addMinasCercanas(1);
                                 }
                             }
                         }
@@ -93,26 +92,25 @@ public class Tablero {
 
                     quantitatMines++;
 
-                    for (int altura = y-1; altura <= y+1; altura++) {
+                    for (int amplada = x-1; amplada <= x+1; amplada++) {
 
-                        for (int amplada = x-1; amplada <= x+1; amplada++) {
+                        for (int  altura = x-1; altura <= x+1; altura++) {
 
-                            if(altura >= 0 && amplada >= 0 && altura < this.y && amplada < this.x){
+                            if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
 
-                                if (!(tablero[altura][amplada].isMina())){
+                                if (!tablero[amplada][altura].isMina()){
 
-                                    tablero[altura][amplada].addMinasCercanas(1);
-
+                                    tablero[amplada][altura].addMinasCercanas(1);
                                 }
                             }
                         }
                     }
-
                 }
             }
         }
         imprimirTaulell();
     }
+
 
 
     public void imprimirTaulell() {
@@ -133,110 +131,45 @@ public class Tablero {
         }
     }
 
-    public void numeros() {
-
-        for (int i = 0; i < tablero.length; i++) {
-
-            for (int j = 0; j < tablero[i].length; j++) {
-                int numero = 0;
-
-                if (i != 0) {
-                    if (tablero[i - 1][j].isMina()) {
-                        numero++;
-                        tablero[i - 1][j].addMinasCercanas(numero);
-                        numero = 0;
-
-                    }
-                    if (tablero[i - 1][j - 1].isMina()) {
-                        numero++;
-                        numero = 0;
-                    }
-                    if (tablero[i - 1][j + 1].isMina()) {
-                        numero++;
-                        numero = 0;
-                    }
-                }
-
-                if (tablero[i][j - 1].isMina()) {
-                    numero++;
-                    numero = 0;
-                }
-                if (i == -1) {
-
-                    if (tablero[i + 1][j - 1].isMina()) {
-                        numero++;
-                        numero = 0;
-                    }
-                    if (tablero[i + 1][j].isMina()) {
-                        numero++;
-                        numero = 0;
-                    }
-
-                }
-                if (i == -1 || j == -1) {
-                    if (tablero[i + 1][j + 1].isMina()) {
-                        numero++;
-                        numero = 0;
-                    }
-                    if (tablero[i][j + 1].isMina()) {
-                        numero++;
-                        numero = 0;
-                    }
-                }
-            }
-        }
-    }
-
     public void numerosTaulell() {
 
         for (int i = 0; i < tablero.length; i++) {
 
             for (int j = 0; j < tablero[i].length; j++) {
-                int numero = 0;
                 if (tablero[i][j].isMina()) {
 
-                    if (!(i == 0)) {
+                    if (i != 0) {
 
                         if (!(tablero[i - 1][j].isMina())) {
-                            numero++;
-                            numero = 0;
+                            tablero[i - 1][j].addMinasCercanas(1);
                         }
-                        if (!(tablero[i - 1][j - 1].isMina()) && !(j == 0)) {
-                            numero++;
-                            numero = 0;
+                        if (!(tablero[i - 1][j - 1].isMina()) && j >= 0) {
+                            tablero[i - 1][j - 1].addMinasCercanas(1);
 
                         }
-                        if (!(tablero[i - 1][j + 1].isMina()) && !(j == tablero[j].length - 1)) {
-                            numero++;
-                            numero = 0;
-
+                        if (j < this.y) {
+                            tablero[i - 1][j + 1].addMinasCercanas(1);
                         }
                     }
-                    if (!(tablero[i][j - 1].isMina()) && !(j == 0)) {
-                        numero++;
-                        numero = 0;
+                    if (!(tablero[i][j - 1].isMina()) && j >= 0) {
+                        tablero[i][j - 1].addMinasCercanas(1);
 
                     }
-                    if (!(tablero[i][j + 1].isMina()) && !(j == tablero[j].length - 1)) {
-                        numero++;
-                        numero = 0;
+                    if ( j <this.y) {
+                        tablero[i][j + 1].addMinasCercanas(1);
 
                     }
-                    if (!(i == tablero[i].length - 1)) {
+                    if (i <  this.x) {
                         if (!(tablero[i + 1][j].isMina())) {
-                            numero++;
-                            numero = 0;
+                            tablero[i + 1][j].addMinasCercanas(1);
 
                         }
-                        if (!(tablero[i + 1][j - 1].isMina()) && !(j == 0)) {
-                            numero++;
-                            numero = 0;
+                        if (!(tablero[i + 1][j - 1].isMina()) && j >= 0) {
+                            tablero[i + 1][j - 1].addMinasCercanas(1);
 
                         }
-                        if (!(tablero[i + 1][j + 1].isMina()) && !(j == tablero[j].length - 1)) {
-                            numero++;
-                            numero = 0;
-
+                        if ( j< this.y) {
+                            tablero[i + 1][j + 1].addMinasCercanas(1);
                         }
                     }
 
