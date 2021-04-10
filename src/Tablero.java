@@ -57,8 +57,8 @@ public class Tablero {
             int mines = sc.nextInt();
             while (quantitatMines < mines) {
 
-                int x = (int) (Math.random() * tablero.length);
-                int y = (int) (Math.random() * tablero.length);
+                int x = (int) (Math.random() * this.x);
+                int y = (int) (Math.random() * this.y);
 
                 if (!tablero[x][y].isMina()) {
                     tablero[x][y].setMina(true);
@@ -67,7 +67,7 @@ public class Tablero {
 
                     for (int amplada = x-1; amplada <= x+1; amplada++) {
 
-                        for (int  altura = x-1; altura <= x+1; altura++) {
+                        for (int  altura = y-1; altura <= y+1; altura++) {
 
                             if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
 
@@ -84,8 +84,8 @@ public class Tablero {
         } else {
             while (quantitatMines < Dificultat.nivellDificultat(dificultat)) {
 
-                int x = (int) (Math.random() * tablero.length);
-                int y = (int) (Math.random() * tablero.length);
+                int x = (int) (Math.random() * this.x);
+                int y = (int) (Math.random() * this.y);
 
                 if (!tablero[x][y].isMina()) {
                     tablero[x][y].setMina(true);
@@ -94,7 +94,7 @@ public class Tablero {
 
                     for (int amplada = x-1; amplada <= x+1; amplada++) {
 
-                        for (int  altura = x-1; altura <= x+1; altura++) {
+                        for (int  altura = y-1; altura <= y+1; altura++) {
 
                             if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
 
@@ -131,7 +131,7 @@ public class Tablero {
         }
     }
 
-    public void numerosTaulell() {
+    /*public void numerosTaulell() {
 
         for (int i = 0; i < tablero.length; i++) {
 
@@ -178,5 +178,5 @@ public class Tablero {
             }
 
         }
-    }
+    }*/
 }
