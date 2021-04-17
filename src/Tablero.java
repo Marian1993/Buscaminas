@@ -45,12 +45,12 @@ public class Tablero {
                 tablero[i][j] = new Casella();
             }
         }
-        mines(dificultat);
+        colocarmines(dificultat);
 
     }
 
 
-    public void mines(int dificultat) {
+    public void colocarmines(int dificultat) {
 
         if (dificultat == 0) {
             System.out.print("Mines: ");
@@ -65,19 +65,7 @@ public class Tablero {
 
                     quantitatMines++;
 
-                    for (int amplada = x-1; amplada <= x+1; amplada++) {
-
-                        for (int  altura = y-1; altura <= y+1; altura++) {
-
-                            if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
-
-                                if (!tablero[amplada][altura].isMina()){
-
-                                    tablero[amplada][altura].addMinasCercanas(1);
-                                }
-                            }
-                        }
-                    }
+                    valorCelda(x,y);
                 }
             }
 
@@ -92,35 +80,21 @@ public class Tablero {
 
                     quantitatMines++;
 
-                    for (int amplada = x-1; amplada <= x+1; amplada++) {
-
-                        for (int  altura = y-1; altura <= y+1; altura++) {
-
-                            if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
-
-                                if (!tablero[amplada][altura].isMina()){
-
-                                    tablero[amplada][altura].addMinasCercanas(1);
-                                }
-                            }
-                        }
-                    }
+                    valorCelda(x,y);
                 }
             }
         }
         imprimirTaulell();
     }
 
-
-
-    public void imprimirTaulell() {
+    private void imprimirTaulell() {
 
         for (int i = 0; i < tablero.length; i++) {
 
             for (int j = 0; j < tablero[i].length; j++) {
 
                 if (!tablero[i][j].isMina()) {
-                    System.out.print(tablero[i][j].getMinasCercanas());
+                    System.out.print(tablero[i][j].getValorCelda());
                 }
                 if (tablero[i][j].isMina()) {
                     System.out.print('*');
@@ -130,53 +104,71 @@ public class Tablero {
             System.out.println();
         }
     }
+    private void eliminarCerosAdyadcentes(int x, int y){
 
-    /*public void numerosTaulell() {
+        for (int  amplada = x-1 ; amplada <= x+1; amplada++) {
 
-        for (int i = 0; i < tablero.length; i++) {
+            for (int altura = y-1; altura <= y+1 ; altura++) {
 
-            for (int j = 0; j < tablero[i].length; j++) {
-                if (tablero[i][j].isMina()) {
+                if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
 
-                    if (i != 0) {
+                    if(!tablero[amplada][altura].isVisible()){
 
-                        if (!(tablero[i - 1][j].isMina())) {
-                            tablero[i - 1][j].addMinasCercanas(1);
-                        }
-                        if (!(tablero[i - 1][j - 1].isMina()) && j >= 0) {
-                            tablero[i - 1][j - 1].addMinasCercanas(1);
-
-                        }
-                        if (j < this.y) {
-                            tablero[i - 1][j + 1].addMinasCercanas(1);
-                        }
-                    }
-                    if (!(tablero[i][j - 1].isMina()) && j >= 0) {
-                        tablero[i][j - 1].addMinasCercanas(1);
 
                     }
-                    if ( j <this.y) {
-                        tablero[i][j + 1].addMinasCercanas(1);
-
-                    }
-                    if (i <  this.x) {
-                        if (!(tablero[i + 1][j].isMina())) {
-                            tablero[i + 1][j].addMinasCercanas(1);
-
-                        }
-                        if (!(tablero[i + 1][j - 1].isMina()) && j >= 0) {
-                            tablero[i + 1][j - 1].addMinasCercanas(1);
-
-                        }
-                        if ( j< this.y) {
-                            tablero[i + 1][j + 1].addMinasCercanas(1);
-                        }
-                    }
-
                 }
 
             }
 
         }
-    }*/
+    }
+    private void imprimirTaulell2() {
+
+        for (int i = 0; i < tablero.length; i++) {
+
+            for (int j = 0; j < tablero[i].length; j++) {
+
+                if(!tablero[i][j].isVisible()){
+
+                    System.out.print("■");
+                }else if (tablero[i][j].isVisible()){
+
+                    if(tablero[i][j].isMina()){
+                        System.out.println("*");
+
+                    } else if(tablero[i][j].getValorCelda() != 0){
+                        System.out.print(tablero[i][j].getValorCelda());
+
+                    }else{
+
+                        System.out.print(" ");
+                    }
+                    if(tablero[i][j].isBandera()){
+                        System.out.print("¶");
+                    }
+                }
+                else if(tablero[i][j].isMina()){
+                    System.out.println("*");
+                }
+                System.out.print("   ");
+            }
+            System.out.println();
+        }
+    }
+    private void valorCelda(int x, int y){
+
+        for (int amplada = x-1; amplada <= x+1; amplada++) {
+
+            for (int  altura = y-1; altura <= y+1; altura++) {
+
+                if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
+
+                    if (!tablero[amplada][altura].isMina()){
+
+                        tablero[amplada][altura].addValorCelda(1);
+                    }
+                }
+            }
+        }
+    }
 }

@@ -4,14 +4,14 @@ public class Casella {
     private boolean mina;
     private boolean bandera;
     private boolean visible;
-    private int minasCercanas;
+    private int valorCelda;
 
-    public int getMinasCercanas() {
-        return minasCercanas;
+    public int getValorCelda() {
+        return valorCelda;
     }
 
-    public void addMinasCercanas(int minasCercanas) {
-        this.minasCercanas += minasCercanas;
+    public void addValorCelda(int valorCelda) {
+        this.valorCelda += valorCelda;
     }
 
     public Casella(){
@@ -42,6 +42,11 @@ public class Casella {
 
     public void setMina(boolean mina) {
         this.mina = mina;
+    }
+
+    public static void destapaCasilla(int y, int x){
+
+
     }
 
 
