@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Tablero {
@@ -48,6 +49,14 @@ public class Tablero {
         colocarmines(dificultat);
 
     }
+    public void desteparCasella(int x,int y){
+
+        tablero[x][y].isVisible();
+    }
+    public void colocarBandera(int x, int y){
+
+        tablero[x][y].isBandera();
+    }
 
 
     public void colocarmines(int dificultat) {
@@ -65,7 +74,7 @@ public class Tablero {
 
                     quantitatMines++;
 
-                    valorCelda(x,y);
+                    colocarNumeroAdyadcents(x,y);
                 }
             }
 
@@ -80,11 +89,11 @@ public class Tablero {
 
                     quantitatMines++;
 
-                    valorCelda(x,y);
+                    colocarNumeroAdyadcents(x,y);
                 }
             }
         }
-        imprimirTaulell();
+        imprimirTaulell2();
     }
 
     private void imprimirTaulell() {
@@ -95,11 +104,82 @@ public class Tablero {
 
                 if (!tablero[i][j].isMina()) {
                     System.out.print(tablero[i][j].getValorCelda());
-                }
-                if (tablero[i][j].isMina()) {
+
+                }else if (tablero[i][j].isMina()) {
                     System.out.print('*');
                 }
                 System.out.print("  ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void entradaTaulell(){
+
+        try {
+
+            System.out.println("Colocar bandera 1" + "\nDestepar casella 2");
+            int entrada = sc.nextInt();
+
+            switch (entrada){
+
+                case 1:
+                    System.out.print("Posa el número de la fila");
+                    int banderaX = sc.nextInt();
+                    System.out.print("Posa el número de la columna");
+                    int banderaY = sc.nextInt();
+                    colocarBandera(banderaX,banderaY);
+                    break;
+                case 2:
+                    System.out.print("Posa el número de la fila");
+                    int desteparX = sc.nextInt();
+                    System.out.print("Posa el número de la columna");
+                    int desteparY = sc.nextInt();
+                    desteparCasella(desteparX,desteparY);
+                    break;
+
+                default:
+                    System.out.println("No has introduit el número corresponent");
+                    entradaTaulell();
+
+            }
+        }catch (InputMismatchException e){
+            System.out.println("No has introduit el número corresponent");
+            entradaTaulell();
+        }
+    }
+
+    private void imprimirTaulell2() {
+
+
+        for (int x = 0; x < tablero.length; x++) {
+
+            for (int y = 0; y < tablero[x].length; y++) {
+
+                if (!tablero[x][y].isVisible()) {
+                    System.out.print("■");
+
+                } else if (tablero[x][y].isVisible()) {
+
+                    if (tablero[x][y].isMina()) {
+                        System.out.println("*");
+
+                    } else if (tablero[x][y].getValorCelda() != 0) {
+                        System.out.print(tablero[x][y].getValorCelda());
+
+                    } else {
+                        eliminarCerosAdyadcentes(x, y);
+                        System.out.print(" ");
+                    }
+                    if (tablero[x][y].isBandera()) {
+                        System.out.print("¶");
+
+                    }
+                } else if (tablero[x][y].isMina()) {
+                    System.out.println("*");
+                }
+                System.out.print("  ");
+
             }
             System.out.println();
         }
@@ -114,48 +194,19 @@ public class Tablero {
 
                     if(!tablero[amplada][altura].isVisible()){
 
+                        tablero[amplada][altura].isVisible();
 
+                        if(tablero[amplada][altura].getValorCelda() == 0){
+
+                            eliminarCerosAdyadcentes(x,y);
+                        }
                     }
                 }
 
             }
-
         }
     }
-    private void imprimirTaulell2() {
-
-        for (int i = 0; i < tablero.length; i++) {
-
-            for (int j = 0; j < tablero[i].length; j++) {
-
-                if(!tablero[i][j].isVisible()){
-
-                    System.out.print("■");
-                }else if (tablero[i][j].isVisible()){
-
-                    if(tablero[i][j].isMina()){
-                        System.out.println("*");
-
-                    } else if(tablero[i][j].getValorCelda() != 0){
-                        System.out.print(tablero[i][j].getValorCelda());
-
-                    }else{
-
-                        System.out.print(" ");
-                    }
-                    if(tablero[i][j].isBandera()){
-                        System.out.print("¶");
-                    }
-                }
-                else if(tablero[i][j].isMina()){
-                    System.out.println("*");
-                }
-                System.out.print("   ");
-            }
-            System.out.println();
-        }
-    }
-    private void valorCelda(int x, int y){
+    private void colocarNumeroAdyadcents(int x, int y){
 
         for (int amplada = x-1; amplada <= x+1; amplada++) {
 
