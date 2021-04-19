@@ -165,7 +165,7 @@ public class Tablero {
 
             for (int y = 0; y < tablero[x].length; y++) {
 
-                if (posicion.posicioX == x || posicion.posicioY == y) {
+                if (posicion.posicioX == x && posicion.posicioY == y) {
 
                     if (tablero[x][y].getValorCelda() == 0) {
 
@@ -199,10 +199,6 @@ public class Tablero {
 
                         tablero[amplada][altura].setVisible(true);
 
-                        if(tablero[amplada][altura].getValorCelda() == 0){
-
-
-                        }
                     }
                 }
 
