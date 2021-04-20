@@ -9,11 +9,10 @@ public class Tablero {
     private int x;
     private int y;
     private int quantitatMines = 0;
-    private int numeros = 0;
+    private boolean ponerBandera = false;
+    public boolean minadestepada = false;
 
-    public Tablero() {
-
-    }
+    public Tablero() {}
 
 
     public void inicialitzarTablero(int dificultat) {
@@ -50,7 +49,7 @@ public class Tablero {
 
     }
 
-    public void colocarmines(int dificultat) {
+    private void colocarmines(int dificultat) {
 
         if (dificultat == 0) {
             System.out.print("Mines: ");
@@ -86,25 +85,7 @@ public class Tablero {
         }
     }
 
-    private void imprimirTaulell() {
-
-        for (int i = 0; i < tablero.length; i++) {
-
-            for (int j = 0; j < tablero[i].length; j++) {
-
-                if (!tablero[i][j].isMina()) {
-                    System.out.print(tablero[i][j].getValorCelda());
-
-                }else if (tablero[i][j].isMina()) {
-                    System.out.print('*');
-                }
-                System.out.print("  ");
-            }
-            System.out.println();
-        }
-    }
-
-    public Posicion entradaTaulell() {
+    public Posicion entradaTablero() {
 
         while (true) {
             try {
@@ -112,24 +93,26 @@ public class Tablero {
                 int entrada = sc.nextInt();
 
                 if (entrada == 1) {
-                    System.out.print("Posa el número de la fila");
+                    ponerBandera = true;
+
+                    System.out.print("Posa el número de la fila: ");
                     int banderaX = sc.nextInt();
-                    System.out.print("Posa el número de la columna");
+                    System.out.print("Posa el número de la columna: ");
                     int banderaY = sc.nextInt();
                     return new Posicion(banderaX, banderaY);
                 } else if (entrada == 2) {
-                    System.out.print("Posa el número de la fila");
+                    System.out.print("Posa el número de la fila: ");
                     int desteparX = sc.nextInt();
-                    System.out.print("Posa el número de la columna");
+                    System.out.print("Posa el número de la columna: ");
                     int desteparY = sc.nextInt();
                     return new Posicion(desteparX, desteparY);
                 }
             } catch (InputMismatchException e) {
-                System.out.println("No has introduit el número corresponent");
+                System.out.println("No has introduit el número corresponent: ");
             }
         }
     }
-    public void imprimirTaulell2() {
+    public void imprimirTablero() {
 
         for (int x = 0; x < tablero.length; x++) {
 
@@ -138,23 +121,23 @@ public class Tablero {
                 if (!tablero[x][y].isVisible()) {
                     System.out.print("■");
 
-                } else if (tablero[x][y].isVisible()) {
+                }else if(tablero[x][y].isBandera()){
+                    System.out.print("¶");
+
+                }else if (tablero[x][y].isVisible()) {
 
                     if (tablero[x][y].isMina()) {
-                        System.out.print("*");
+                        System.out.print("×");
+                        minadestepada = true;
 
-                    } else if (tablero[x][y].getValorCelda() < 9) {
-                        System.out.print(tablero[x][y].getValorCelda());
-
-                    } else if (tablero[x][y].getValorCelda() == 0) {
+                    }else if (tablero[x][y].getValorCelda() == 0) {
                         System.out.print(" ");
-                    }
-                    if (tablero[x][y].isBandera()) {
-                        System.out.print("¶");
+
+                    }else if(tablero[x][y].getValorCelda() < 9) {
+                        System.out.print(tablero[x][y].getValorCelda());
                     }
                 }
                 System.out.print("  ");
-
             }
             System.out.println();
         }
@@ -167,7 +150,12 @@ public class Tablero {
 
                 if (posicion.posicioX == x && posicion.posicioY == y) {
 
-                    if (tablero[x][y].getValorCelda() == 0) {
+                    if(ponerBandera && !tablero[x][y].isVisible()){
+
+                        tablero[x][y].setBandera(true);
+
+                    }
+                    if (tablero[x][y].getValorCelda() == 0 && !tablero[x][y].isMina()) {
 
                         eliminarCerosAdyadcentes(x,y);
 
@@ -175,16 +163,12 @@ public class Tablero {
 
                         tablero[x][y].setVisible(true);
 
-                    }else if(tablero[x][y].isMina()){
+                    } else if(tablero[x][y].isMina()){
 
-                        //perdedor
+                        minadestepada = true;
                     }
-
                 }
-
-
             }
-
         }
     }
     private void eliminarCerosAdyadcentes(int x, int y){
@@ -199,9 +183,12 @@ public class Tablero {
 
                         tablero[amplada][altura].setVisible(true);
 
+                        if(tablero[amplada][altura].getValorCelda() == 0) {
+
+                            eliminarCerosAdyadcentes(amplada, altura);
+                        }
                     }
                 }
-
             }
         }
     }
@@ -220,5 +207,26 @@ public class Tablero {
                 }
             }
         }
+    }
+    private void mostrarBombes(){
+
+        for (int x = 0; x < tablero.length; x++) {
+
+            for (int y = 0; y < tablero[x].length; y++) {
+
+                if(tablero[x][y].isMina()){
+
+                }
+            }
+        }
+    }
+    public void fiDelJoc(){
+
+        if(minadestepada){
+            System.out.println("Has perdido");
+        }else {
+            System.out.println("Has ganado!");
+        }
+
     }
 }
