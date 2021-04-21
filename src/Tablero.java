@@ -94,12 +94,12 @@ public class Tablero {
 
                 if (entrada == 1) {
                     ponerBandera = true;
-
                     System.out.print("Posa el número de la fila: ");
                     int banderaX = sc.nextInt();
                     System.out.print("Posa el número de la columna: ");
                     int banderaY = sc.nextInt();
                     return new Posicion(banderaX, banderaY);
+
                 } else if (entrada == 2) {
                     System.out.print("Posa el número de la fila: ");
                     int desteparX = sc.nextInt();
@@ -118,23 +118,34 @@ public class Tablero {
 
             for (int y = 0; y < tablero[x].length; y++) {
 
-                if (!tablero[x][y].isVisible()) {
-                    System.out.print("■");
-
-                }else if(tablero[x][y].isBandera()){
+                if(tablero[x][y].isBandera()){
                     System.out.print("¶");
+                    ponerBandera = false;
+
+                }else if (!tablero[x][y].isVisible()) {
+
+                    if (!minadestepada && !tablero[x][y].isMina()) {
+                        System.out.print("■");
+                    }else if(!minadestepada && tablero[x][y].isMina()){
+                        System.out.print("■");
+                    }
+                    if(minadestepada && tablero[x][y].isMina()){
+                        System.out.print("×");
+                    }
+                    else if(minadestepada && !tablero[x][y].isMina()){
+                        System.out.print("■");
+                    }
 
                 }else if (tablero[x][y].isVisible()) {
 
                     if (tablero[x][y].isMina()) {
                         System.out.print("×");
-                        minadestepada = true;
 
                     }else if (tablero[x][y].getValorCelda() == 0) {
                         System.out.print(" ");
 
                     }else if(tablero[x][y].getValorCelda() < 9) {
-                        System.out.print(tablero[x][y].getValorCelda());
+                        assignarColores(x,y);
                     }
                 }
                 System.out.print("  ");
@@ -154,18 +165,17 @@ public class Tablero {
 
                         tablero[x][y].setBandera(true);
 
-                    }
-                    if (tablero[x][y].getValorCelda() == 0 && !tablero[x][y].isMina()) {
+                    }else if (tablero[x][y].getValorCelda() == 0 && !tablero[x][y].isMina()) {
 
                         eliminarCerosAdyadcentes(x,y);
 
-                    }else if(tablero[x][y].getValorCelda() < 9){
+                    }else if(tablero[x][y].getValorCelda() < 9 && !tablero[x][y].isMina()){
 
                         tablero[x][y].setVisible(true);
 
                     } else if(tablero[x][y].isMina()){
-
                         minadestepada = true;
+                        tablero[x][y].setVisible(true);
                     }
                 }
             }
@@ -208,16 +218,32 @@ public class Tablero {
             }
         }
     }
-    private void mostrarBombes(){
+    private void assignarColores(int x, int y){
 
-        for (int x = 0; x < tablero.length; x++) {
+        if(tablero[x][y].getValorCelda() == 1){
+            System.out.print(Colores.ANSI_BLUE + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
 
-            for (int y = 0; y < tablero[x].length; y++) {
+        }else if(tablero[x][y].getValorCelda() == 2){
+            System.out.print(Colores.ANSI_GREEN + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
 
-                if(tablero[x][y].isMina()){
+        }else if(tablero[x][y].getValorCelda() == 3){
+            System.out.print(Colores.ANSI_PURPLE + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
 
-                }
-            }
+        }else if(tablero[x][y].getValorCelda() == 4){
+            System.out.print(Colores.ANSI_YELLOW + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
+
+        }else if(tablero[x][y].getValorCelda() == 5){
+            System.out.print(Colores.ANSI_CYAN + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
+
+        }else if(tablero[x][y].getValorCelda() == 6){
+            System.out.print(Colores.ANSI_BLACK + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
+
+        }else if(tablero[x][y].getValorCelda() == 7){
+            System.out.print(Colores.ANSI_RED + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
+
+        }else if(tablero[x][y].getValorCelda() == 8){
+            System.out.print(Colores.ANSI_RED + tablero[x][y].getValorCelda() + Colores.ANSI_RESET);
+
         }
     }
     public void fiDelJoc(){

@@ -10,14 +10,13 @@ public class Joc {
         System.out.println("Prinicipiant = 1" + "\nIntermitg = 2" + "\nExpert = 3" + "\nPersonalitzat = 0");
         tablero.inicialitzarTablero(sc.nextInt());
 
-        do {
-            if(!tablero.minadestepada) {
-                tablero.imprimirTablero();
-                tablero.desteparCelda(tablero.entradaTablero());
-            }
+        do{
 
-        } while (!tablero.minadestepada);
+            tablero.imprimirTablero();
+            tablero.desteparCelda(tablero.entradaTablero());
 
+        }while(!tablero.minadestepada);
+        tablero.imprimirTablero();
         tablero.fiDelJoc();
     }
 
