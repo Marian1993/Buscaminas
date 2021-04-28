@@ -18,23 +18,23 @@ public class Tablero {
     public void inicialitzarTablero(int dificultat) {
 
         if (dificultat == Dificultat.PRINCIPIANT) {
-            y = 8;
-            x = 8;
+            y = 8+1;
+            x = 8+1;
         }
         if (dificultat == Dificultat.INTERMITG) {
-            y = 16;
-            x = 16;
+            y = 16+1;
+            x = 16+1;
         }
         if (dificultat == Dificultat.EXPERT) {
-            y = 16;
-            x = 30;
+            y = 16+1;
+            x = 30+1;
         }
         if (dificultat == Dificultat.PERSONALITZAT) {
 
             System.out.print("Altura: ");
-            y = sc.nextInt();
+            y = sc.nextInt() +1;
             System.out.print("Amplada: ");
-            x = sc.nextInt();
+            x = sc.nextInt() +1;
 
         }
         this.tablero = new Casella[x][y];
@@ -114,7 +114,9 @@ public class Tablero {
     }
     public void imprimirTablero() {
 
+
         for (int x = 0; x < tablero.length; x++) {
+
 
             for (int y = 0; y < tablero[x].length; y++) {
 
@@ -187,7 +189,7 @@ public class Tablero {
 
             for (int altura = y-1; altura <= y+1 ; altura++) {
 
-                if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
+                if(amplada >= 1 && altura >= 1 && amplada < this.y && altura < this.x){
 
                     if(!tablero[amplada][altura].isVisible()){
 
@@ -208,7 +210,7 @@ public class Tablero {
 
             for (int  altura = y-1; altura <= y+1; altura++) {
 
-                if(amplada >= 0 && altura >= 0 && amplada < this.y && altura < this.x){
+                if(amplada >= 1 && altura >= 1 && amplada < this.y && altura < this.x){
 
                     if (!tablero[amplada][altura].isMina()){
 

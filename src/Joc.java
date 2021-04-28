@@ -20,4 +20,6 @@ public class Joc {
         tablero.fiDelJoc();
     }
 
+
+
 }
