@@ -8,26 +8,20 @@ public class Joc {
     public static void main(String[]args){
 
 
-        try{
+        Tablero tablero = new Tablero();
+        System.out.println("Prinicipiant = 1" + "\nIntermitg = 2" + "\nExpert = 3" + "\nPersonalitzat = 0");
+        tablero.inicialitzarTablero(Errors.esNecessitaNumero());
 
-            Tablero tablero = new Tablero();
-            System.out.println("Prinicipiant = 1" + "\nIntermitg = 2" + "\nExpert = 3" + "\nPersonalitzat = 0");
-            tablero.inicialitzarTablero(sc.nextInt());
-
-            do{
-
-                tablero.imprimirTablero();
-                tablero.desteparCelda(tablero.entradaTablero());
-
-            }while(!tablero.minadestepada);
+        do{
 
             tablero.imprimirTablero();
-            tablero.fiDelJoc();
+            tablero.desteparCelda(tablero.entradaTablero());
 
-        }catch (InputMismatchException e){
+        }while(!tablero.minadestepada);
 
-            System.out.println("Has de posar el numeros que s'indique anteriorment");
-        }
+        tablero.imprimirTablero();
+        tablero.fiDelJoc();
+
 
     }
 

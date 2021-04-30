@@ -12,13 +12,13 @@ public class Tablero {
     private boolean ponerBandera = false;
     public boolean minadestepada = false;
     private boolean primeraDestepada = false;
-    private int tipusDificultat = 0;
     private int minesPers = 0;
 
     public Tablero() {}
 
 
     public void inicialitzarTablero(int dificultat) {
+
 
         if (dificultat == Dificultat.PRINCIPIANT) {
             x = 8;
@@ -38,10 +38,10 @@ public class Tablero {
             y = sc.nextInt();
             System.out.print("Amplada: ");
             x = sc.nextInt();
-            tipusDificultat = dificultat;
             System.out.print("Mines: ");
             minesPers = sc.nextInt();
         }
+
         this.tablero = new Casella[x][y];
 
         for (int i = 0; i < tablero.length; i++) {
@@ -121,36 +121,36 @@ public class Tablero {
 
     public Posicion entradaTablero() {
 
+
         while (true) {
-            try {
-                System.out.println("Colocar bandera 1" + "\nDestepar casella 2" + "\nLlevar bandera 0");
-                int entrada = sc.nextInt();
 
-                if (entrada == 1) {
-                    ponerBandera = true;
-                    System.out.print("Posa el número de la fila: ");
-                    int banderaX = sc.nextInt();
-                    System.out.print("Posa el número de la columna: ");
-                    int banderaY = sc.nextInt();
-                    return new Posicion(banderaX, banderaY);
+            System.out.println("Colocar bandera 1" + "\nDestepar casella 2" + "\nLlevar bandera 0");
+            int entrada = Errors.esNecessitaNumero();
 
-                } else if (entrada == 2) {
-                    System.out.print("Posa el número de la fila: ");
-                    int desteparX = sc.nextInt();
-                    System.out.print("Posa el número de la columna: ");
-                    int desteparY = sc.nextInt();
-                    return new Posicion(desteparX, desteparY);
-                }
-                else if( entrada == 0){
-                    System.out.print("Posa el número de la fila: ");
-                    int desteparX = sc.nextInt();
-                    System.out.print("Posa el número de la columna: ");
-                    int desteparY = sc.nextInt();
-                    return new Posicion(desteparX, desteparY);
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("No has introduit el número corresponent: ");
+            if (entrada == 1) {
+                ponerBandera = true;
+                System.out.print("Posa el número de la fila: ");
+                int banderaX = Errors.esNecessitaNumero();
+                System.out.print("Posa el número de la columna: ");
+                int banderaY = Errors.esNecessitaNumero();
+                return new Posicion(banderaX, banderaY);
+
+            } else if (entrada == 2) {
+                System.out.print("Posa el número de la fila: ");
+                int desteparX = Errors.esNecessitaNumero();
+                System.out.print("Posa el número de la columna: ");
+                int desteparY = Errors.esNecessitaNumero();
+                return new Posicion(desteparX, desteparY);
             }
+            else if( entrada == 0){
+                System.out.print("Posa el número de la fila: ");
+                int desteparX = Errors.esNecessitaNumero();
+                System.out.print("Posa el número de la columna: ");
+                int desteparY = Errors.esNecessitaNumero();
+                return new Posicion(desteparX, desteparY);
+            }
+
+            System.err.println("Has de posar una de les tres opcions");
         }
     }
     public void imprimirTablero() {
