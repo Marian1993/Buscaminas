@@ -12,7 +12,7 @@ public class Dificultat {
 
     }
 
-    public static int nivellDificultat(int dificultat){
+    public static int quantitatMines(int dificultat){
 
 
         if(dificultat == PRINCIPIANT){
@@ -22,9 +22,7 @@ public class Dificultat {
         }else if(dificultat == EXPERT){
             return 99;
         }else {
-            return 0;
+            return Taulell.minesPers;
         }
     }
-
-
 }

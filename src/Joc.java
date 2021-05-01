@@ -1,4 +1,5 @@
-import java.util.InputMismatchException;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Scanner;
 
 public class Joc {
@@ -8,23 +9,36 @@ public class Joc {
     public static void main(String[]args){
 
 
-        Tablero tablero = new Tablero();
-        System.out.println("Prinicipiant = 1" + "\nIntermitg = 2" + "\nExpert = 3" + "\nPersonalitzat = 0");
-        tablero.inicialitzarTablero(Errors.esNecessitaNumero());
+        Taulell taulell = new Taulell();
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ᴘʀɪɴᴄɪᴘɪᴀɴᴛ ► 1" + "          " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK+ "ɪɴᴛᴇʀᴍᴇᴅɪ ► 2" +"            " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ᴇxᴘᴇʀᴛ ► 3" +"               " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ᴘᴇʀsᴏɴᴀʟɪᴛᴢᴀᴛ ► 0" + "        " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
+        System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
+        System.out.println();
+        System.out.print(Colores.ANSI_GREEN + "Elegueix una opció: " + Colores.ANSI_RESET);
+        taulell.crearTaulell(Error.esNecessitaNumero());
 
-        do{
+        if(!taulell.partidaGuanyada()) {
 
-            tablero.imprimirTablero();
-            tablero.desteparCelda(tablero.entradaTablero());
+            do {
 
-        }while(!tablero.minadestepada);
+                taulell.imprimirTablero();
+                taulell.desteparCelda(taulell.entradaTablero());
 
-        tablero.imprimirTablero();
-        tablero.fiDelJoc();
+                if (taulell.partidaGuanyada()) {
+                    break;
+                }
 
+
+            } while (!taulell.minaDestepada);
+        }
+
+        taulell.imprimirTablero();
+        taulell.fiDelJoc();
 
     }
-
-
-
 }

@@ -1,9 +1,9 @@
-public class Posicion {
+public class Posicio {
 
     public int posicioY;
     public int posicioX;
 
-    public Posicion(int posicioX, int posicioY) {
+    public Posicio(int posicioX, int posicioY) {
         this.posicioX = posicioX;
         this.posicioY = posicioY;
     }
