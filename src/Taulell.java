@@ -97,6 +97,7 @@ public class Taulell {
         while (true) {
 
             System.out.println("Colocar bandera o quitar bandera 1" + "\nDestepar casella 2");
+            System.out.print(Colores.ANSI_GREEN + "Elegeix una opció: " + Colores.ANSI_RESET);
             int entrada = Error.esNecessitaNumero();
 
             if(entrada == 1){
@@ -232,7 +233,8 @@ public class Taulell {
             minaDestepada = true;
             taulell[posicio.posicioX][posicio.posicioY].setVisible(true);
         }else{
-            System.err.println("Has seleccionat una casella visibles");
+            System.out.println(Colores.ANSI_RED + "Has seleccionat una casella visibles" + Colores.ANSI_RESET);
+            System.out.println();
         }
     }
 
@@ -369,8 +371,44 @@ public class Taulell {
         }
     }
 
+    public boolean reiniciaJoc(boolean opcio){
 
-    public void fiDelJoc(){
+        if(opcio || !opcio){
+
+            System.out.println("Posa un 0 si vols reiniciar la partida, sino posa un 1");
+            int reinici;
+            String confirmacio;
+            String auxConfrim;
+            reinici = Error.esNecessitaNumero();
+            if (reinici == 0) {
+                return true;
+            }
+
+            while (true) {
+
+                if (reinici == 1) {
+                    System.out.println("Segur?(S/N)");
+                    sc.nextLine();
+                    confirmacio = sc.nextLine();
+                    auxConfrim = confirmacio.toLowerCase();
+
+                    if (auxConfrim.charAt(0) == 's') {
+                        return true;
+                    } else if (confirmacio.charAt(0) == 'n') {
+                        return false;
+                    } else {
+                        System.err.println("No has posat cap dels caracter solicitats, torna a posa la teva resposta:");
+                    }
+
+                }
+
+            }
+        }
+        return false;
+    }
+
+
+    public boolean fiDelJoc(){
 
         if(minaDestepada){
             System.out.println("     _____               .---...-.");
@@ -381,7 +419,8 @@ public class Taulell {
             System.out.println("  \\     _   /         ; |    _   ||");
             System.out.println("   `..___..'          `-'..____.'`'");
             System.out.println("      ;._:                _; :_");
-            System.out.println("     /    \\ Has perdido ,'  `' `. Es un perdedor");
+            System.out.println("     /    \\ Has perdut  ,'  `' `. Es un perdedor");
+            return false;
         }else {
             System.out.println("                       __");
             System.out.println("                     .'  '.");
@@ -391,11 +430,11 @@ public class Taulell {
             System.out.println("    \\ '-'`        .___.--._)=========================|");
             System.out.println("     \\             .'      |                         |");
             System.out.println("       |     /,_.-'        |                         |");
-            System.out.println("     _/   _.'(             |       Has ganado!       |");
+            System.out.println("     _/   _.'(             |       Has guanyat!      |");
             System.out.println("   /  ,-' \\  \\             |                         |");
             System.out.println("   \\  \\    `-'             |                         |");
             System.out.println("    `-'                    '-------------------------'");
+            return true;
         }
-
     }
 }
