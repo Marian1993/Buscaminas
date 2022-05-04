@@ -45,10 +45,4 @@ public class Casella {
         this.mines = mines;
     }
 
-    public void destapaCasilla(int y, int x){
-
-
-    }
-
-
 }

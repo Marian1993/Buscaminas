@@ -1,52 +1,47 @@
 public class Input {
 
-    public Taulell elegirDificultat(){
+    public int elegirDificultat(){
 
         int dificultat = PosarNumero.esNecessitaNumero();
-        while (true) {
 
-            switch (dificultat) {
+            while (!(dificultat >= 0 && dificultat <= 3)){
 
-                case 0:
-                    System.out.print("Posa l'altura: ");
-                    int files = PosarNumero.esNecessitaNumero();
-                    System.out.print("Posa l'amplada: ");
-                    int columnes = PosarNumero.esNecessitaNumero();
-                    System.out.print("Posa la quantitat de mines: ");
-                    int mines = PosarNumero.esNecessitaNumero();
-                    return new Taulell(files, columnes,mines);
-                case 1:
-                    return new Taulell(8,8,10);
-                case 2:
-                    return new Taulell(16,16,40);
-                case 3:
-                    return new Taulell(30,16,99);
-                default:
-                    System.err.println("Torna a escollir una opció:");
-                    dificultat = PosarNumero.esNecessitaNumero();
+                System.err.println("No has escollit cap de les opcions, torna a escollir una opció:");
+                dificultat = PosarNumero.esNecessitaNumero();
             }
-        }
+        return dificultat;
     }
-    public void elegirAccio(Taulell taulell) {
+    public int[] taulellPerso(){
 
-        boolean eleccioCorrecte = false;
+        int[] perso = new int[3];
 
-        while (!eleccioCorrecte) {
-            System.out.println("Colocar bandera = 0\n" + "Llevar bandera = 1" + "\nDestepar casella = 2");
-            System.out.print(Color.ANSI_GREEN + "Elegeix una opció: " + Color.ANSI_RESET);
-            int num = PosarNumero.esNecessitaNumero();
+        System.out.print("Posa l'altura: ");
+        perso[0] = PosarNumero.esNecessitaNumero();
+        System.out.print("Posa l'amplada: ");
+        perso[1] = PosarNumero.esNecessitaNumero();
+        System.out.print("Posa la quantitat de mines: ");
+        perso[2] = PosarNumero.esNecessitaNumero();
+        while(!((perso[0]*perso[1]) > perso[2])){
 
-            if (num == 0 || num == 1) {
-                taulell.posarOLlevarBandera(posarCoordenades(taulell));
-                eleccioCorrecte = true;
-            } else if (num == 2) {
-                taulell.estatCaselles(posarCoordenades(taulell));
-                eleccioCorrecte = true;
-            } else {
-                System.out.println("No has posat cap de les opcions");
-            }
+            System.out.print("Massa mines, torna a posar la quantitat de mines:");
+            perso[2] = PosarNumero.esNecessitaNumero();
         }
+        return perso;
     }
+    public int elegirAccio() {
+
+        System.out.println("Colocar bandera = 0\n" + "Llevar bandera = 1" + "\nDestepar casella = 2");
+        System.out.print(Color.ANSI_GREEN + "Elegeix una opció: " + Color.ANSI_RESET);
+        int num = PosarNumero.esNecessitaNumero();
+
+        while (!(num >= 0 && num <=2)) {
+
+            System.out.println("No has posat cap de les opcions");
+            num = PosarNumero.esNecessitaNumero();
+        }
+        return num;
+    }
+
     public static Posicio posarCoordenades(Taulell taulell){
 
         System.out.print("Posa el número de la fila: ");

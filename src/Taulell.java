@@ -20,8 +20,6 @@ public class Taulell {
         this.minaDestepada = false;
     }
 
-
-
     public void inicialitzarTaulell( Casella[][] casella) {
 
         this.taulell = casella;
@@ -72,7 +70,7 @@ public class Taulell {
     public void estatCaselles(Posicio posicio){
 
         if(taulell[posicio.posicioX][posicio.posicioY].isBandera()){
-            System.err.println("No pot destapar la casella si tens una bandera colocada");
+            System.out.println(Color.ANSI_RED +"No pot destapar la casella si tens una bandera colocada" + Color.ANSI_RESET);
         }else if (taulell[posicio.posicioX][posicio.posicioY].getMinesVeines() == 0 && !taulell[posicio.posicioX][posicio.posicioY].isMines() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
 
             expandirCasellesBuides(posicio.posicioX,posicio.posicioY);
@@ -102,16 +100,12 @@ public class Taulell {
                 if(taulell[x][y].isMines() && taulell[x][y].isVisible()){
                     return true;
                 }
-                if(!taulell[x][y].isVisible()){
+                if(taulell[x][y].isVisible()){
                     casallesNoVisisbles++;
-                }
-                if(casallesNoVisisbles == this.quantitatMines){
-
-                    return true;
                 }
             }
         }
-        return false;
+        return(casallesNoVisisbles == this.quantitatMines);
     }
 
 
