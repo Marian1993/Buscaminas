@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Error {
+public class PosarNumero {
 
     private static Scanner sc = new Scanner(System.in);
     public static int esNecessitaNumero(){

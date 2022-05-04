@@ -1,46 +1,35 @@
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.Scanner;
 
 public class Joc {
 
-    private static Scanner sc = new Scanner(System.in);
-
     public static void main(String[]args){
 
+
+        Output output = new Output();
+        Input input = new Input();
         Taulell taulell;
 
-        do {
 
-            taulell = new Taulell();
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ᴘʀɪɴᴄɪᴘɪᴀɴᴛ ► 1" + "          " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ɪɴᴛᴇʀᴍᴇᴅɪ ► 2" + "            " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ᴇxᴘᴇʀᴛ ► 3" + "               " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "          " + Colores.ANSI_BLACK + "ᴘᴇʀsᴏɴᴀʟɪᴛᴢᴀᴛ ► 0" + "        " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
-            System.out.println(Colores.ANSI_CYAN_BACKGROUND + "                                   " + Colores.ANSI_RESET);
-            System.out.println();
-            System.out.print(Colores.ANSI_GREEN + "Elegueix una opció: " + Colores.ANSI_RESET);
-            taulell.crearTaulell(Error.esNecessitaNumero());
+        do{
 
-            if (!taulell.partidaGuanyada()) {
+            output.textDificultats();
+            taulell = input.elegirDificultat();
+            Casella [][] casella = new Casella[taulell.getNumFiles()][taulell.getNumColumnes()];
+            taulell.inicialitzarTaulell(casella);
+            output.imprimirTaulell(taulell,casella);
+            taulell.colocarMines(Input.posarCoordenades(taulell));
 
-                do {
 
-                    taulell.imprimirTablero();
-                    taulell.desteparCelda(taulell.entradaTablero());
+            do {
+                output.imprimirTaulell(taulell,casella);
+                input.elegirAccio(taulell);
 
-                    if (taulell.partidaGuanyada()) {
-                        break;
-                    }
+            }while (!taulell.partidaPerduda());
 
-                } while (!taulell.minaDestepada);
-            }
+            output.imprimirTaulell(taulell,casella);
+            output.fiDelJoc(taulell.isMinaDestepada(), taulell.getIntents());
 
-            taulell.imprimirTablero();
+        }while (input.reiniciaJoc());
 
-        }while (taulell.reiniciaJoc(taulell.fiDelJoc()));
     }
 }

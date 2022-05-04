@@ -1,23 +1,24 @@
 public class Casella {
 
 
-    private boolean mina;
+    private boolean mines;
     private boolean bandera;
     private boolean visible;
-    private int valorCelda;
+    private int minesVeines = 0;
 
-    public int getValorCelda() {
-        return valorCelda;
-    }
-
-    public void addValorCelda(int valorCelda) {
-        this.valorCelda += valorCelda;
-    }
 
     public Casella(){
-        this.mina = false;
+        this.mines = false;
         this.visible = false;
         this.bandera = false;
+    }
+
+    public int getMinesVeines() {
+        return minesVeines;
+    }
+
+    public void addMinesVeines(int valorCelda) {
+        this.minesVeines += valorCelda;
     }
 
     public boolean isBandera() {
@@ -36,15 +37,15 @@ public class Casella {
         this.visible = buida;
     }
 
-    public boolean isMina() {
-        return mina;
+    public boolean isMines() {
+        return mines;
     }
 
-    public void setMina(boolean mina) {
-        this.mina = mina;
+    public void setMines(boolean mines) {
+        this.mines = mines;
     }
 
-    public static void destapaCasilla(int y, int x){
+    public void destapaCasilla(int y, int x){
 
 
     }
