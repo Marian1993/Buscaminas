@@ -32,6 +32,8 @@ public class InteraccioJoc {
         }
     }
 
+    //Aqui està tota la interacció que fera l'usuari amb el joc
+
     public static void partida(){
         do{
 
@@ -46,7 +48,6 @@ public class InteraccioJoc {
             do {
                 output.imprimirTaulell(taulell,casella);
                 eleccioARealitzar(taulell, input.elegirAccio());
-                //input.elegirAccio(taulell);
 
             }while (!taulell.partidaPerduda());
 

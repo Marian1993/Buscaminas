@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Taulell {
 
@@ -67,6 +66,7 @@ public class Taulell {
         }
     }
 
+    //Aquest metode es on es posara l'estat de la casella, de la posicio que s'ha elegit amb la interacció.
     public void estatCaselles(Posicio posicio){
 
         if(taulell[posicio.posicioX][posicio.posicioY].isBandera()){
@@ -109,6 +109,7 @@ public class Taulell {
     }
 
 
+    //Aquest metode fa que s'expandasquin les caselles que no tenen cap mina propera
     private void expandirCasellesBuides(int x, int y){
 
         for (int  amplada = x-1 ; amplada <= x+1; amplada++) {
@@ -132,6 +133,7 @@ public class Taulell {
     }
 
 
+    //Aquest metode coloca el numero que rodetjen una mina, i en suma un per cada mina propera.
     private void colocarNumeroAdyadcents(int x, int y){
 
         for (int amplada = x-1; amplada <= x+1; amplada++) {
@@ -155,24 +157,12 @@ public class Taulell {
         return numFiles;
     }
 
-    public void setNumFiles(int numFiles) {
-        this.numFiles = numFiles;
-    }
-
     public int getNumColumnes() {
         return numColumnes;
     }
 
-    public void setNumColumnes(int numColumnes) {
-        this.numColumnes = numColumnes;
-    }
-
     public int getQuantitatMines() {
         return quantitatMines;
-    }
-
-    public void setQuantitatMines(int quantitatMines) {
-        this.quantitatMines = quantitatMines;
     }
 
     public int getIntents() {
@@ -181,14 +171,6 @@ public class Taulell {
 
     public void setIntents(int intents) {
         this.intents = intents;
-    }
-
-    public Casella[][] getTaulell() {
-        return taulell;
-    }
-
-    public void setTaulell(Casella[][] taulell) {
-        this.taulell = taulell;
     }
 
     public boolean isMinaDestepada() {

@@ -1,6 +1,5 @@
 public class Casella {
 
-
     private boolean mines;
     private boolean bandera;
     private boolean visible;
