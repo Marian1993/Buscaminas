@@ -1,27 +1,24 @@
 
 public class InteraccioJoc {
 
-    private final static Output output = new Output();
-    private final static Input input = new Input();
     private static  Taulell taulell;
-
 
     private static Taulell eleccioDificultat(int dificultat){
 
-        switch (dificultat) {
+        int[][] dificultatsTaulell = {{},{8,8,10},{16,16,40},{30,16,99}};
 
-            case 0:
-                int[] taulell = input.taulellPerso();
-                return new Taulell(taulell[0],taulell[1],taulell[2]);
-            case 1:
-                return new Taulell(8,8,10);
-            case 2:
-                return new Taulell(16,16,40);
-            case 3:
-                return new Taulell(30,16,99);
+        int[] parametresTaulell;
+
+        if ( dificultat == 0 ){
+            parametresTaulell = Input.taulellPerso();
         }
-        return new Taulell();
+        else {
+            parametresTaulell = dificultatsTaulell[dificultat];
+        }
+        return new Taulell(parametresTaulell[0],parametresTaulell[1],parametresTaulell[2]);
     }
+
+
     private static void eleccioARealitzar(Taulell taulell, int operacio){
 
         if (operacio == 0 || operacio == 1) {
@@ -37,24 +34,24 @@ public class InteraccioJoc {
     public static void partida(){
         do{
 
-            output.textDificultats();
-            taulell = eleccioDificultat(input.elegirDificultat());
+            Output.textDificultats();
+            taulell = eleccioDificultat(Input.elegirDificultat());
             Casella [][] casella = new Casella[taulell.getNumFiles()][taulell.getNumColumnes()];
             taulell.inicialitzarTaulell(casella);
-            output.imprimirTaulell(taulell,casella);
+            Output.imprimirTaulell(taulell,casella);
             taulell.colocarMines(Input.posarCoordenades(taulell));
 
 
             do {
-                output.imprimirTaulell(taulell,casella);
-                eleccioARealitzar(taulell, input.elegirAccio());
+                Output.imprimirTaulell(taulell,casella);
+                eleccioARealitzar(taulell, Input.elegirAccio());
 
             }while (!taulell.partidaPerduda());
 
-            output.imprimirTaulell(taulell,casella);
-            output.fiDelJoc(taulell.isMinaDestepada(), taulell.getIntents());
+            Output.imprimirTaulell(taulell,casella);
+            Output.fiDelJoc(taulell.isMinaDestepada(), taulell.getIntents());
 
-        }while (input.reiniciaJoc());
+        }while (Input.reiniciaJoc());
 
     }
 

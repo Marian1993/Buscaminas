@@ -1,8 +1,7 @@
 public class Output {
 
-    //public Output(){}
 
-    public void textDificultats(){
+    public static void textDificultats(){
 
         System.out.println(Color.ANSI_CYAN_BACKGROUND + "                                   " + Color.ANSI_RESET);
         System.out.println(Color.ANSI_CYAN_BACKGROUND + "                                   " + Color.ANSI_RESET);
@@ -16,7 +15,7 @@ public class Output {
         System.out.print(Color.ANSI_GREEN + "Elegueix una opció: " + Color.ANSI_RESET);
     }
 
-    public void imprimirTaulell(Taulell taulell, Casella[][] casella){
+    public static void imprimirTaulell(Taulell taulell, Casella[][] casella){
 
         int contadorMines = 0;
 
@@ -28,7 +27,6 @@ public class Output {
 
             for (int y = 0; y < taulell.getNumColumnes() ; y++) {
 
-
                 if(casella[x][y].isMines() && taulell.isMinaDestepada()){
                     System.out.print("×");
                 }else if(casella[x][y].isBandera()){
@@ -39,7 +37,7 @@ public class Output {
                 }else if (casella[x][y].getMinesVeines() == 0) {
                     System.out.print(" ");
                 }else if(casella[x][y].getMinesVeines() < 9) {
-                    Color.assignarColors(casella[x][y].getMinesVeines());
+                    System.out.print(Color.assignarColors(casella[x][y].getMinesVeines()));
                 }
                 System.out.print("  ");
 
@@ -56,7 +54,7 @@ public class Output {
             System.out.println(Color.ANSI_RED + "Tens més banderes que de quantitat de mines d'es taulell!");
         }
     }
-    private void posarNumerosAdaltAbaix(Taulell taulell){
+    private static void posarNumerosAdaltAbaix(Taulell taulell){
 
         for (int i = 0; i < taulell.getNumColumnes(); i++) {
             if(i == 0){
@@ -70,7 +68,7 @@ public class Output {
         System.out.println();
     }
 
-    public void fiDelJoc(boolean resultat, int intents){
+    public static void fiDelJoc(boolean resultat, int intents){
 
         if(resultat){
             System.out.println("     _____               .---...-.");

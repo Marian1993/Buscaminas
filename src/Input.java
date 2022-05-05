@@ -1,6 +1,6 @@
 public class Input {
 
-    public int elegirDificultat(){
+    public static int elegirDificultat(){
 
         int dificultat = PosarNumero.esNecessitaNumero();
 
@@ -11,7 +11,7 @@ public class Input {
             }
         return dificultat;
     }
-    public int[] taulellPerso(){
+    public static int[] taulellPerso(){
 
         int[] perso = new int[3];
 
@@ -28,7 +28,7 @@ public class Input {
         }
         return perso;
     }
-    public int elegirAccio() {
+    public static int elegirAccio() {
 
         System.out.println("Colocar bandera = 0\n" + "Llevar bandera = 1" + "\nDestepar casella = 2");
         System.out.print(Color.ANSI_GREEN + "Elegeix una opció: " + Color.ANSI_RESET);
@@ -61,7 +61,7 @@ public class Input {
         return new Posicio(desteparX, desteparY);
     }
 
-    public boolean reiniciaJoc(){
+    public static boolean reiniciaJoc(){
 
         System.out.println("Reiniciar partida = 0 \n" + "Per sortir pitja cualsevol numero");
         int reinici = PosarNumero.esNecessitaNumero();
