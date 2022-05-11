@@ -9,17 +9,18 @@ public class Taulell {
     private boolean minaDestepada;
 
 
-    public Taulell() {}
+    public Taulell() {
+    }
 
     public Taulell(int numFiles, int numColumnes, int quantitatMines) {
 
-        this.numFiles =  numFiles;
+        this.numFiles = numFiles;
         this.numColumnes = numColumnes;
         this.quantitatMines = quantitatMines;
         this.minaDestepada = false;
     }
 
-    public void inicialitzarTaulell( Casella[][] casella) {
+    public void inicialitzarTaulell(Casella[][] casella) {
 
         this.taulell = casella;
 
@@ -40,56 +41,56 @@ public class Taulell {
             int x = (int) (Math.random() * this.numFiles);
             int y = (int) (Math.random() * this.numColumnes);
 
-            if (!taulell[x][y].isMines() && !(posicio.posicioX == x  && posicio.posicioY == y)) {
+            if (!taulell[x][y].isMines() && !(posicio.posicioX == x && posicio.posicioY == y)) {
                 taulell[x][y].setMines(true);
 
                 contadorMines++;
 
-                colocarNumeroAdyadcents(x,y);
+                colocarNumeroAdyadcents(x, y);
             }
         }
         estatCaselles(posicio);
     }
 
-    public void posarOLlevarBandera(Posicio posicio){
+    public void posarOLlevarBandera(Posicio posicio) {
 
-        if(!taulell[posicio.posicioX][posicio.posicioY].isBandera() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()){
+        if (!taulell[posicio.posicioX][posicio.posicioY].isBandera() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
             taulell[posicio.posicioX][posicio.posicioY].setBandera(true);
 
-        }else if(taulell[posicio.posicioX][posicio.posicioY].isBandera()){
+        } else if (taulell[posicio.posicioX][posicio.posicioY].isBandera()) {
 
             taulell[posicio.posicioX][posicio.posicioY].setBandera(false);
-        }else if(taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
+        } else if (taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
             System.out.println(Color.ANSI_RED + "La casella es visible, no pots posar una bandera" + Color.ANSI_RESET);
-        }else {
+        } else {
             System.out.println(Color.ANSI_RED + "Has de posar una bandera abans" + Color.ANSI_RESET);
         }
     }
 
     //Aquest metode es on es posara l'estat de la casella, de la posicio que s'ha elegit amb la interacció.
-    public void estatCaselles(Posicio posicio){
+    public void estatCaselles(Posicio posicio) {
 
-        if(taulell[posicio.posicioX][posicio.posicioY].isBandera()){
-            System.out.println(Color.ANSI_RED +"No pot destapar la casella si tens una bandera colocada" + Color.ANSI_RESET);
-        }else if (taulell[posicio.posicioX][posicio.posicioY].getMinesVeines() == 0 && !taulell[posicio.posicioX][posicio.posicioY].isMines() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
+        if (taulell[posicio.posicioX][posicio.posicioY].isBandera()) {
+            System.out.println(Color.ANSI_RED + "No pot destapar la casella si tens una bandera colocada" + Color.ANSI_RESET);
+        } else if (taulell[posicio.posicioX][posicio.posicioY].getMinesVeines() == 0 && !taulell[posicio.posicioX][posicio.posicioY].isMines() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
 
-            expandirCasellesBuides(posicio.posicioX,posicio.posicioY);
+            expandirCasellesBuides(posicio.posicioX, posicio.posicioY);
 
-        }else if(!taulell[posicio.posicioX][posicio.posicioY].isMines() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()){
+        } else if (!taulell[posicio.posicioX][posicio.posicioY].isMines() && !taulell[posicio.posicioX][posicio.posicioY].isVisible()) {
 
             taulell[posicio.posicioX][posicio.posicioY].setVisible(true);
 
-        }else if(taulell[posicio.posicioX][posicio.posicioY].isMines()){
+        } else if (taulell[posicio.posicioX][posicio.posicioY].isMines()) {
             taulell[posicio.posicioX][posicio.posicioY].setVisible(true);
             setMinaDestepada(true);
-        }else{
+        } else {
             System.out.println(Color.ANSI_RED + "Has seleccionat una casella visibles" + Color.ANSI_RESET);
             System.out.println();
         }
     }
 
 
-    public boolean partidaPerduda(){
+    public boolean partidaPerduda() {
 
         int casallesNoVisisbles = 0;
 
@@ -97,32 +98,32 @@ public class Taulell {
 
             for (int y = 0; y < this.numColumnes; y++) {
 
-                if(taulell[x][y].isMines() && taulell[x][y].isVisible()){
+                if (taulell[x][y].isMines() && taulell[x][y].isVisible()) {
                     return true;
                 }
-                if(taulell[x][y].isVisible()){
+                if (taulell[x][y].isVisible()) {
                     casallesNoVisisbles++;
                 }
             }
         }
-        return(casallesNoVisisbles == this.quantitatMines);
+        return (casallesNoVisisbles == this.quantitatMines);
     }
 
 
     //Aquest metode fa que s'expandasquin les caselles que no tenen cap mina propera
-    private void expandirCasellesBuides(int x, int y){
+    private void expandirCasellesBuides(int x, int y) {
 
-        for (int  amplada = x-1 ; amplada <= x+1; amplada++) {
+        for (int amplada = x - 1; amplada <= x + 1; amplada++) {
 
-            for (int altura = y-1; altura <= y+1 ; altura++) {
+            for (int altura = y - 1; altura <= y + 1; altura++) {
 
-                if(amplada >= 0 && altura >= 0 && altura < this.numColumnes && amplada < this.numFiles){
+                if (amplada >= 0 && altura >= 0 && altura < this.numColumnes && amplada < this.numFiles) {
 
-                    if(!taulell[amplada][altura].isVisible()){
+                    if (!taulell[amplada][altura].isVisible()) {
 
                         taulell[amplada][altura].setVisible(true);
 
-                        if(taulell[amplada][altura].getMinesVeines() == 0) {
+                        if (taulell[amplada][altura].getMinesVeines() == 0) {
 
                             expandirCasellesBuides(amplada, altura);
                         }
@@ -134,15 +135,15 @@ public class Taulell {
 
 
     //Aquest metode coloca el numero que rodetjen una mina, i en suma un per cada mina propera.
-    private void colocarNumeroAdyadcents(int x, int y){
+    private void colocarNumeroAdyadcents(int x, int y) {
 
-        for (int amplada = x-1; amplada <= x+1; amplada++) {
+        for (int amplada = x - 1; amplada <= x + 1; amplada++) {
 
-            for (int  altura = y-1; altura <= y+1; altura++) {
+            for (int altura = y - 1; altura <= y + 1; altura++) {
 
-                if(amplada >= 0 && altura >= 0 && altura < this.numColumnes && amplada < this.numFiles){
+                if (amplada >= 0 && altura >= 0 && altura < this.numColumnes && amplada < this.numFiles) {
 
-                    if (!taulell[amplada][altura].isMines()){
+                    if (!taulell[amplada][altura].isMines()) {
 
                         taulell[amplada][altura].addMinesVeines(1);
                     }
@@ -150,7 +151,6 @@ public class Taulell {
             }
         }
     }
-
 
 
     public int getNumFiles() {

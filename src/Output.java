@@ -1,7 +1,7 @@
 public class Output {
 
 
-    public static void textDificultats(){
+    public static void textDificultats() {
 
         System.out.println(Color.ANSI_CYAN_BACKGROUND + "                                   " + Color.ANSI_RESET);
         System.out.println(Color.ANSI_CYAN_BACKGROUND + "                                   " + Color.ANSI_RESET);
@@ -15,7 +15,7 @@ public class Output {
         System.out.print(Color.ANSI_GREEN + "Elegueix una opció: " + Color.ANSI_RESET);
     }
 
-    public static void imprimirTaulell(Taulell taulell, Casella[][] casella){
+    public static void imprimirTaulell(Taulell taulell, Casella[][] casella) {
 
         int contadorMines = 0;
 
@@ -23,25 +23,25 @@ public class Output {
 
         for (int x = 0; x < taulell.getNumFiles(); x++) {
 
-            System.out.print( x >= 10 ? x + " " : x + "  ");
+            System.out.print(x >= 10 ? x + " " : x + "  ");
 
-            for (int y = 0; y < taulell.getNumColumnes() ; y++) {
+            for (int y = 0; y < taulell.getNumColumnes(); y++) {
 
-                if(casella[x][y].isMines() && taulell.isMinaDestepada()){
+                if (casella[x][y].isMines() && taulell.isMinaDestepada()) {
                     System.out.print("×");
-                }else if(casella[x][y].isBandera()){
+                } else if (casella[x][y].isBandera()) {
                     System.out.print("¶");
                     contadorMines++;
-                }else if(!casella[x][y].isVisible()) {
+                } else if (!casella[x][y].isVisible()) {
                     System.out.print("■");
-                }else if (casella[x][y].getMinesVeines() == 0) {
+                } else if (casella[x][y].getMinesVeines() == 0) {
                     System.out.print(" ");
-                }else if(casella[x][y].getMinesVeines() < 9) {
+                } else if (casella[x][y].getMinesVeines() < 9) {
                     System.out.print(Color.assignarColors(casella[x][y].getMinesVeines()));
                 }
                 System.out.print("  ");
 
-                if(y == taulell.getNumColumnes() - 1){
+                if (y == taulell.getNumColumnes() - 1) {
                     System.out.print(x);
                 }
 
@@ -50,27 +50,28 @@ public class Output {
         }
         taulell.setIntents(1);
         posarNumerosAdaltAbaix(taulell);
-        if(contadorMines > taulell.getQuantitatMines()){
+        if (contadorMines > taulell.getQuantitatMines()) {
             System.out.println(Color.ANSI_RED + "Tens més banderes que de quantitat de mines d'es taulell!");
         }
     }
-    private static void posarNumerosAdaltAbaix(Taulell taulell){
+
+    private static void posarNumerosAdaltAbaix(Taulell taulell) {
 
         for (int i = 0; i < taulell.getNumColumnes(); i++) {
-            if(i == 0){
+            if (i == 0) {
                 System.out.print("   " + i + "  ");
-            } else if(i < 10){
+            } else if (i < 10) {
                 System.out.print(i + "  ");
-            }else{
+            } else {
                 System.out.print(i + " ");
             }
         }
         System.out.println();
     }
 
-    public static void fiDelJoc(boolean resultat, int intents){
+    public static void fiDelJoc(boolean resultat, int intents) {
 
-        if(resultat){
+        if (resultat) {
             System.out.println("     _____               .---...-.");
             System.out.println("   ,'  -. `.           ,' _____...'");
             System.out.println("  /   - _ - \\         : .' _   _ \\\\");
@@ -81,7 +82,7 @@ public class Output {
             System.out.println("      ;._:                _; :_");
             System.out.println("     /    \\ Has perdut  ,'  `' `. Es un perdedor");
 
-        }else {
+        } else {
             System.out.println("                       __");
             System.out.println("                     .'  '.");
             System.out.println("                 _.-'/  |  \\");

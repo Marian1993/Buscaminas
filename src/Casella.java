@@ -6,7 +6,7 @@ public class Casella {
     private int minesVeines = 0;
 
 
-    public Casella(){
+    public Casella() {
         this.mines = false;
         this.visible = false;
         this.bandera = false;
